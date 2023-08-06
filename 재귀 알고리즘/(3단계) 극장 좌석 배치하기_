@@ -1,0 +1,18 @@
+answer=0
+
+# [설계2] 좌석 배치 재귀함수 호출 및 설계
+def solution(now_s_num, num_s_people): # (현재 좌석 위치, 앉은 사람 수)
+    global answer
+    if now_s_num > n: # 현재 좌석 위치가 n보다 크면 강제 종료하고 Back!
+        return
+    if num_s_people == k: # 앉은 사람수가 k값과 같으면 종료하고 Back!
+        answer+=1 # 가능한 경우이므로 갯수 카운트
+        return    
+    solution(now_s_num+1, num_s_people) # 다음 좌석 위치로 이동하고, 좌석은 배치하지 않음.(왼쪽 갈래)
+    solution(now_s_num+1, num_s_people+1) # 다음 좌석 위치로 이동하고, 현재 좌석에 사람을 앉힘.(오른쪽 갈래)
+    
+# [설계1] 입력 받기
+n, k = map(int, input().split())
+# [설계2] 좌석 배치 재귀함수 호출 및 설계
+solution(0,0) 
+print(answer)
