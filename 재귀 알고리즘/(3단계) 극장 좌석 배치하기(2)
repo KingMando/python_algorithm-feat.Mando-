@@ -1,0 +1,23 @@
+answer=0
+# [설계2] 좌석 배치 재귀함수 호출 및 설계
+def solution(now_s_num, num_s_people, continuous): # (현재 좌석 위치, 앉은 사람 수, 연속된 자리 이용 수)
+    global answer
+    # [설계4] 함수 종료 조건 설계
+    if now_s_num > n or continuous > 2: # 현재 좌석 위치가 n보다 크거나 3자리 연속 자리를 이용했으면 종료(Back!)
+        return
+    # [설계5] 가능한 좌석 배치 갯수 세기 설계
+    if num_s_people == k: # 앉은 사람수가 k값과 같으면
+        if now_s_num == n and continuous ==2: # 끝자리에 연속해서 앉는 경우는 갯수를 세지 않고 종료
+                return                        # 왜냐하면 양옆쪽으로 비는 자리가 없기 때문
+        elif continuous <3: # 만약 3자리 연속 자리를 이용하지 않았다면
+                answer+=1   # 가능한 경우이므로 갯수 카운트
+                return
+        
+    solution(now_s_num+1, num_s_people, 0) # 다음 좌석 위치로 이동하고, 좌석은 배치하지 않음.(왼쪽 갈래)
+    solution(now_s_num+1, num_s_people+1, continuous+1) # 다음 좌석 위치로 이동하고, 다음 좌석에 사람을 앉힘.(오른쪽 갈래)
+    
+# [설계1] 입력 받기
+n, k = map(int, input().split())
+# [설계2] 좌석 배치 재귀함수 호출 및 설계
+solution(0,0,1) 
+print(answer)
