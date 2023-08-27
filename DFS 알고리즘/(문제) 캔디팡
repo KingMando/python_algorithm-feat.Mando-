@@ -33,7 +33,7 @@ for i in range(7):
 for i in range(7):
     for j in range(7):
         if graph[i][j] != 0:
-          result = dfs(graph[i][j], i, j) # 해당 위치 색깔 탐색 시작
+          dfs(graph[i][j], i, j) # 해당 위치 색깔 탐색 시작
           if cnt_color >=3: # 같은 색깔 개수가 3개 이상 탐지되었다면
              cnt_crush+=1   # 캔디가 터지는 영역의 수 추가(정답)
           cnt_color = 0     # cnt_color는 0으로 초기화하여 다시 탐색할 준비
