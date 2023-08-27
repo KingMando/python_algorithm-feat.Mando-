@@ -1,0 +1,15 @@
+coin, target = map(int, input().split())
+cnt_coin =0
+price = []
+for i in range(coin):
+  price.append(int(input()))
+  
+price.sort(reverse=True)
+for i in range(coin):
+  if(price[i] <= target):
+    cnt_coin += target // price[i]
+    target = target % price[i]
+  if target ==0:
+    break
+  
+print(cnt_coin)
