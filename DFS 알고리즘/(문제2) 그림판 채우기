@@ -1,6 +1,7 @@
 # 출처: 코드업 2610번 그림판 채우기
-# [설계2] DFS 설계하기 (2) DFS 함수 만들기
+# [설계3] 정답 출력하기 (2) 함수 설계
 def print_graph():
+    # 중첩 반복문으로 2차원 리스트 출력
     for i in range(10):
         for j in range(10):
             print(graph[i][j],end="")
@@ -30,7 +31,7 @@ for i in range(10):
 y, x = map(int, input().split()) # 본 문제에서는 x,y 좌표 의미가 반대임에 유의하여 입력받기
 
 # [설계2] dfs 탐색 함수 설계 (1) 함수 호출
-result = dfs(x, y) # 해당 위치 그림판 채우기를 위한 dfs 탐색 시작
+dfs(x, y) # 해당 위치 그림판 채우기를 위한 dfs 탐색 시작
 
-# [설계3] 정답 출력하기
+# [설계3] 정답 출력하기 (1) 함수 호출
 print_graph() # 정답 그래프 출력하기
