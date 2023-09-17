@@ -1,0 +1,30 @@
+# [설계3] 바이러스 전파(DFS로 구현)
+def dfs_virus(num):
+    global cnt # 바이러스 컴퓨터의 수 출력
+    
+    
+    visited[num] = 1 # 현재 컴퓨터 바이러스 처리(방문 처리)
+    
+    for i in graph[num]: # 다음 탐색 위치 설정하기
+        if visited[i]==0: # 바이러스 전파가 안되었다면(방문 처리 안되었다면)
+            cnt+=1 # 바이러스 컴퓨터 개수 카운트
+            dfs_virus(i) # 다음 바이러스 전파
+    return
+
+# [설계1] 입력 받기
+cnt=0
+n = int(input())
+m = int(input())
+
+# [설계2] 인접 리스트, 방문 리스트 만들기
+graph = [[] for _ in range(n+1)]
+visited = [0]*(n+1)
+for i in range(m):
+    start, end = map(int, input().split())
+    graph[start].append(end)
+    graph[end].append(start)
+
+dfs_virus(1) # 바이러스 전파(DFS로 구현)
+
+# [설계4] 정답 출력하기
+print(cnt) # 결과 출력
