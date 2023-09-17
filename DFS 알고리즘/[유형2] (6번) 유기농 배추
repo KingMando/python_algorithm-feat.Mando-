@@ -1,0 +1,43 @@
+import sys
+limit_number = 15000
+sys.setrecursionlimit(limit_number)
+
+# [설계3] 인접 배추 탐색하기(DFS로 구현)
+def dfs(x, y):
+    if x<0 or x >n-1 or y<0 or y >m-1: # 그래프 범위를 벗어나면 탐색 종료
+        return False
+    
+    if graph[x][y] == 1: # 해당 위치가 얼음이라면
+        graph[x][y] = 0 # 해당 위치 방문처리
+        # 상,하,좌,우 dfs 탐색하기
+        dfs(x-1, y) # 상
+        dfs(x, y-1) # 좌
+        dfs(x+1, y) # 하
+        dfs(x, y+1) # 우
+        return True # 인접 배추가 발견되었으므로 True를 반환
+    
+    return False # 해당 위치가 배추가 아니라면 탐색 종료
+
+# [설계1] 입력 받기
+cnt = 0 # 필요한 배추흰지렁이 개수
+
+t = int(input())
+graph = [[0]*(50) for _ in range(50)]
+
+for i in range(t): # 테스트 개수만큼 반복하기
+    m, n, k = map(int, input().split())
+    
+    for j in range(k):
+            y, x = map(int, input().split())
+            graph[x][y] = 1
+            
+    # [설계2] 인접 배추 탐색 함수 호출하기
+    for j in range(n):
+        for k in range(m):
+            result = dfs(j, k) # 해당 위치 인접 배추 dfs 탐색 시작
+            if result == True: # 인접 배추가 탐색되었다면 필요한 배추흰지렁이 개수 세기
+                cnt+=1
+
+    # [설계4] 정답 출력하기
+    print(cnt) # 정답 출력
+    cnt=0 # 배추흰지렁이 개수 초기화
