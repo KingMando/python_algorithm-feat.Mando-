@@ -1,8 +1,7 @@
 # [설계3] 바이러스 전파(DFS로 구현)
 def dfs_virus(num):
-    global cnt # 바이러스 컴퓨터의 수 출력
-    
-    
+    global cnt # 바이러스 컴퓨터의 수 출력 
+   
     visited[num] = 1 # 현재 컴퓨터 바이러스 처리(방문 처리)
     
     for i in graph[num]: # 다음 탐색 위치 설정하기
