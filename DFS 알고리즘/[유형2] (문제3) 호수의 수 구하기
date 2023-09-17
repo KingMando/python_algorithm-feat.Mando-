@@ -1,0 +1,44 @@
+# [설계4] 재귀함수 호출 제한 풀기
+import sys
+limit_number = 15000
+sys.setrecursionlimit(limit_number)
+
+# [설계3] 호수 개수 세기(DFS로 구현)
+def dfs(x, y):
+    # 그래프 범위를 벗어나면 탐색 종료
+    if x<0 or x >h-1 or y<0 or y >w-1: 
+        return False
+    
+    # 호수 탐색하기
+    if graph[x][y] == 'L': # 해당 위치가 호수라면
+        graph[x][y] = '.' # 해당 위치 방문처리
+        # 상,좌,하,우, 왼쪽위, 오른쪽위, 왼쪽아래, 오른쪽아래 dfs 탐색하기
+        dfs(x-1, y) # 상
+        dfs(x, y-1) # 좌
+        dfs(x+1, y) # 하
+        dfs(x, y+1) # 우
+        dfs(x-1, y-1) # 왼쪽위
+        dfs(x-1, y+1) # 오른쪽위
+        dfs(x+1, y-1) # 왼쪽아래
+        dfs(x+1, y+1) # 오른쪽아래
+        return True # 호수가 발견되었으므로 True를 반환
+    
+    return False # 해당 위치가 호수가 아니라면 탐색 종료
+
+# [설계1] 그래프 입력 받기
+w, h = map(int, input().split())
+cnt_lake = 0 # 호수 개수 
+
+graph = []
+for i in range(h):
+        graph.append(list(input().split()))
+        
+# [설계2] 호수 개수 세기 dfs 함수 호출
+for i in range(h):
+    for j in range(w):
+          result = dfs(i, j) # 해당 위치 호수 개수 세기 dfs 탐색 시작
+          if result == True: # 호수가 탐색되었다면 호수 개수 세기
+              cnt_lake+=1
+              
+# [설계5] 정답 출력
+print(cnt_lake) # 정답 출력
