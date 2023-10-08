@@ -19,7 +19,7 @@ def dfs(x, y, color):
 n = int(input())
 
 graph = []
-visited = [[0]*n for _ in range(n)]
+visited = [[0]*n for _ in range(n)] # 방문 처리 리스트 만들기
 cnt_3color = 0
 cnt_2color = 0
 
