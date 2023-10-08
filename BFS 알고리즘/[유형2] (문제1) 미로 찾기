@@ -18,9 +18,9 @@ def bfs(x, y):
             # 무시(2) 벽인 경우 무시하기
             if graph[next_x][next_y] == 0:
                 continue
-            # 해당 노드를 처음 방문하는 경우, 최단 거리 기록 후 큐에 삽입하여 다음 탐색 실행
+            # 해당 노드를 처음 방문하는 경우, 최단 거리 기록(방문처리) 후 큐에 삽입하여 다음 탐색 실행
             if graph[next_x][next_y] == 1:
-                graph[next_x][next_y] = graph[x][y] + 1
+                graph[next_x][next_y] = graph[x][y] + 1 # 최단 거리 기록(방문처리)
                 queue.append((next_x, next_y))
 
 # [설계1] 입력 받기
