@@ -1,0 +1,40 @@
+import sys
+sys.setrecursionlimit(15000)
+# [설계3] 섬 탐색 함수 만들기(DFS)
+def dfs(x, y):
+    if x<0 or x >h-1 or y<0 or y >w-1: # 그래프 범위를 벗어나면 탐색 종료
+        return False
+    if graph[x][y] == 1: # 해당 위치가 얼음이라면
+        graph[x][y] = 0 # 해당 위치 방문처리
+        # 상,하,좌,우, 상좌, 상우, 하좌, 하우 dfs 탐색하기
+        dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        dfs(x-1, y-1)
+        dfs(x-1, y+1)
+        dfs(x+1, y-1)
+        dfs(x+1, y+1)
+        return True # 섬이 발견되었으므로 True를 반환
+    
+    return False # 해당 위치가 섬이 아니라면 탐색 종료
+# [설계1] 그래프 입력 받기
+while 1:
+    w, h = map(int, input().split())
+    if w==0 and h==0: # w, h가 0,0이 입력되면 종료
+        break
+    cnt_land = 0 # 섬 개수 초기화
+
+    graph = [] # 그래프 입력받기
+    for i in range(h):
+            graph.append(list(map(int, input().split())))
+            
+    # [설계2] 섬 탐색 함수 호출하기
+    for i in range(h):
+        for j in range(w):
+            result = dfs(i, j) # 해당 위치 섬 탐색 시작
+            if result == True: # 섬이 탐색되었다면 섬 개수 세기
+                cnt_land+=1
+                
+    # [설계4] 정답 출력하기
+    print(cnt_land)
