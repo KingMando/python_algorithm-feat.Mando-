@@ -1,0 +1,50 @@
+from collections import deque
+# [설계3] 토마토 익히기(BFS)
+def bfs(x, y):  
+    while queue:
+        x, y = queue.popleft()
+        # 상, 하, 좌, 우 탐색하기
+        for i in range(4):
+            next_x = x + dx[i]
+            next_y = y + dy[i]
+            
+            # 탐색을 무시해도 되는 경우 설계하기
+            # 무시(1) 그래프 범위를 벗어난 경우 무시하기
+            if next_x < 0 or next_x >=n or next_y < 0 or next_y >= m:
+                continue
+
+            # 해당 노드를 처음 방문하는 경우, 날짜 기록(방문처리) 후 큐에 삽입하여 다음 탐색 실행 준비하기
+            if graph[next_x][next_y] == 0:
+                graph[next_x][next_y] = graph[x][y] + 1 # 날짜 기록(방문처리)
+                queue.append((next_x, next_y)) # 다음 탐색 위치 추가
+
+# [설계1] 입력 받기
+m, n = map(int, input().split())
+graph = []
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+
+# 상, 하, 좌, 우 탐색 방향 설정하기
+dx = [-1, 1, 0, 0] # 예를 들어 (dx, dy)가 (-1, 0)인 경우 '상' 방향을 의미
+dy = [0, 0, -1, 1]
+queue = deque()
+
+# [설계2] 탐색 시작 위치 정하기(BFS)
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 1:
+            queue.append((i, j))
+            
+# bfs 함수 호출
+bfs(0, 0)
+
+# [설계4] 정답 출력하기
+max = graph[0][0] # 토마토 익기까지 걸린 날짜 구하기(최대값 구하기 알고리즘)
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 0: # 안 익은 토마토가 있는 경우 -1 출력
+            print(-1)
+            exit(0)
+        if max < graph[i][j]:
+            max = graph[i][j]
+print(max-1) # 토마토 익기까지 걸린 날짜 출력
