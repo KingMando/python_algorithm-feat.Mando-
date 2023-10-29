@@ -8,10 +8,10 @@ weight = list(map(int, input().split()))
 weight.sort()
 
 # [설계3] 측정가능 범위 판별하기
-target = 1 # 현재 측정하려는 무게 목표
+target = 1 # 현재 측정할 수 없는 무게 최소값
 
 for i in range(n):
-    if target < weight[i]: # 현재 측정하려는 무게 목표보다 새로 추가되는 추가 크다면 측정 불가능
+    if target < weight[i]: # 현재 측정할 수 없는 무게 최소값보다 새로 추가되는 추가 크다면 측정 불가능
         break
     target += weight[i] # 현재 측정하려는 무게 목표값 재설정
     
