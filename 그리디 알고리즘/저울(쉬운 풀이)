@@ -1,0 +1,27 @@
+# 출처: 백준 2437번 저울
+# 핵심아이디어: (1) 그리디 알고리즘
+# 핵심아이디어: (2) 현재 측정 범위와 새로운 측정 범위를 합칠 수 있는가?
+
+# [설계1] 입력받기
+n = int(input())
+weight = []*n
+weight = list(map(int, input().split()))
+
+# [설계2] 오름차순 정렬(그리디 알고리즘)
+weight.sort()
+
+# [설계3] 측정가능한 범위 판별하기
+min_weight = 1 # 현재 측정 불가능한 무게 최소값
+now_m_start =0 # 현재 측정 가능한 무게 범위의 시작점
+now_m_end =0 # 현재 측정 가능한 무게 범위의 끝점
+
+for i in range(n):
+    new_m_start = weight[i] # 무게추가 추가되면서 새롭게 측정 가능한 무게 범위의 시작점
+    new_m_end = now_m_end + weight[i] # 새롭게 측정 가능한 무게 범위의 끝점
+    
+    if now_m_end +1 < new_m_start: # 현재 측정 가능한 무게 범위와 새롭게 측정 가능한 무게 범위가 합쳐질 수 있는지 판별
+        break # 현재 범위와 새로운 범위가 합쳐질 수 없으므로 종료
+    min_weight = new_m_end + 1 # 현재 측정할 수 없는 무게 최소값 설정
+    now_m_end = new_m_end # 현재 측정 가능한 무게 범위의 끝점을 재설정
+# [설계4] 정답 출력
+print(min_weight) 
