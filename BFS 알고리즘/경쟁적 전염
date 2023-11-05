@@ -1,0 +1,52 @@
+# 문제출처: 백준 18405 경쟁적 전염
+# 코드: 만두쌤(Youtube 안녕하쌤)
+  
+from collections import deque
+# [설계4] (2) 바이러스 전파하기 함수 설계(BFS)
+def virus_spread():  
+    while queue:
+        virus, s, x, y = queue.popleft()
+        # 큐가 비거나 target_s초만큼 지나면 바이러스 전파 종료
+        if s == target_s:
+            break
+        # 상, 하, 좌, 우 탐색하기
+        for i in range(4):
+            next_x = x + dx[i]
+            next_y = y + dy[i]
+            # 탐색을 무시해도 되는 경우 설계하기
+            # 무시(1) 그래프 범위를 벗어난 경우 무시하기
+            if next_x < 0 or next_x >=n or next_y < 0 or next_y >= n:
+                continue
+            # 해당 노드를 처음 방문하는 경우: 바이러스를 전파 후, 큐에 삽입하여 다음 전파 준비하기
+            if graph[next_x][next_y] == 0:
+                graph[next_x][next_y] = virus # 현재 바이러스를 전파
+                queue.append((virus, s+1, next_x, next_y)) # 다음 탐색 위치 추가
+
+# [설계1] 입력 받기
+n, k = map(int, input().split())
+graph = []
+virus_data = []
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+
+target_s, target_x, target_y = map(int, input().split())
+
+# 상, 하, 좌, 우 탐색 방향 설정하기
+dx = [-1, 1, 0, 0] # 예를 들어 (dx, dy)가 (-1, 0)인 경우 '상' 방향을 의미
+dy = [0, 0, -1, 1]
+
+# [설계2] 바이러스 정보 저장하기
+for i in range(n):
+    for j in range(n):
+        if graph[i][j] != 0:
+            virus_data.append((graph[i][j], 0, i, j)); # virus 정보 저장(virus 종류, 현재 시간, 위치x, 위치y)
+
+# [설계3] 바이러스 정보를 정렬하여 큐에 저장하기
+virus_data.sort()
+queue = deque(virus_data)
+            
+# [설계4] (1) 바이러스 전파하기 함수 호출(BFS)
+virus_spread()
+
+# [설계5] 정답 출력하기
+print(graph[target_x-1][target_y-1])
